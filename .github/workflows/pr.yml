@@ -8,11 +8,11 @@ jobs:
     # if: ${{ github.event.pull_request.draft == false }}
     strategy:
       matrix:
-        py: ["3.11", "3.12"]
+        py: ["3.12"]
     steps:
       - uses: actions/checkout@v4
       - uses: eifinger/setup-rye@v3
-      - run: rye pin $py
+      - run: rye pin ${{ matrix.py }}
       - run: | # abort if the lockfile changes
           rye sync
           [[ -n $(git diff --stat requirements.lock) ]] && exit 1
