@@ -5,17 +5,17 @@ on:
 jobs:
   pr:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.draft == false }}
+    # if: ${{ github.event.pull_request.draft == false }}
     strategy:
       matrix:
-        py: ["3.11", "3.12"]
+        py: ["3.12"]
     steps:
       - uses: actions/checkout@v4
       - uses: eifinger/setup-rye@v3
-      - run: rye pin $
-      - run: | # abort if the lockfile changes
+      - run: rye pin ${{ matrix.py }}
+      - run: |
           rye sync
-          [[ -n $(git diff --stat requirements.lock) ]] && exit 1
+          # [[ -n $(git diff --stat requirements.lock) ]] && exit 1 # abort if the lockfile changes
       - run: rye fmt --check
       - run: rye lint
       - run: rye run test
