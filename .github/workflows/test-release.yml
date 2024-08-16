@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: |
-          rye build
-      - run: |
-          rye publish -r test.pypi.org
+      - run: rye build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
