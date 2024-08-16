@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: eifinger/setup-rye@v3
-      - run: rye pin $
+      - run: rye pin $py
       - run: | # abort if the lockfile changes
           rye sync
           [[ -n $(git diff --stat requirements.lock) ]] && exit 1
