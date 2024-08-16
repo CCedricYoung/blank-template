@@ -5,7 +5,7 @@ on:
 jobs:
   pr:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.draft == false }}
+    # if: ${{ github.event.pull_request.draft == false }}
     strategy:
       matrix:
         py: ["3.11", "3.12"]
