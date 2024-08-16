@@ -15,9 +15,8 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      - uses: eifinger/setup-rye@v3
+      - run: rye pin "3.12"
       - run: rye build
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
