@@ -18,4 +18,6 @@ jobs:
       - uses: eifinger/setup-rye@v3
       - run: rye pin "3.12"
       - run: rye build
-      - run: rye publish -r test.pypi.org
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
