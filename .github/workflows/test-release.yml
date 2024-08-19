@@ -45,6 +45,7 @@ jobs:
             -F generate_release_notes=true
           git fetch --tags
           echo "Latest release is now $(git describe --tags --abbrev=0)"
+          rye build --clean
       - name: build package
         run: rye build
       - name: publish to test.pypi.org
