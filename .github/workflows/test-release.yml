@@ -50,7 +50,7 @@ jobs:
         run: |
           python -V
           . .venv/bin/activate
-          pip install build
+          python -m pip install build
           python -m build
       - name: publish to test.pypi.org
         uses: pypa/gh-action-pypi-publish@release/v1
