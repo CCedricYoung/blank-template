@@ -13,7 +13,8 @@ jobs:
     environment: test-release  # match name in test.PyPI.org OIDC
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
+      contents: write  # Required to create a release
+      id-token: write  # Required for connecttion to pypi OIDC
     steps:
       - name: checkout main
         uses: actions/checkout@v4
