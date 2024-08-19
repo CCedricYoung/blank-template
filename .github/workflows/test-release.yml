@@ -9,14 +9,18 @@ on:
       - 'main'
 
 jobs:
-  test-publish:
+  test-publish-main:
     environment: test-release  # match name in test.PyPI.org OIDC
     runs-on: ubuntu-latest
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: eifinger/setup-rye@v3
+      - name: checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: setup rye
+        uses: eifinger/setup-rye@v3
       - name: set python version
         run: rye pin "3.12"
       - name: create GH release
