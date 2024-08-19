@@ -1,6 +1,5 @@
-name: test-release
-
-# publish to test.pypi.org on merge to default branch
+name: create-release
+# create release and tag in GitHub
 
 on:
   workflow_dispatch:
@@ -9,22 +8,16 @@ on:
       - 'main'
 
 jobs:
-  test-publish-main:
-    environment: test-release  # match name in test.PyPI.org OIDC
+  create-release-main:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Required to create a release
-      id-token: write  # Required for connecttion to pypi OIDC
     steps:
       - name: checkout main
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-      - name: setup rye
-        uses: eifinger/setup-rye@v3
-      - name: set python version
-        run: rye pin "3.12"
       - name: create GH release
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -43,11 +36,3 @@ jobs:
             -F draft=false \
             -F prerelease=false \
             -F generate_release_notes=true
-          git fetch --tags
-          echo "Latest release is now $(git describe --tags --abbrev=0)"
-      - name: build package
-        run: rye build
-      - name: publish to test.pypi.org
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
