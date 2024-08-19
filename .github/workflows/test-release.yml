@@ -9,20 +9,31 @@ on:
       - 'main'
 
 jobs:
-  test-publish:
+  test-publish-main:
     environment: test-release  # match name in test.PyPI.org OIDC
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
+      contents: write  # Required to create a release
+      id-token: write  # Required for connecttion to pypi OIDC
     steps:
-      - uses: actions/checkout@v4
-      - uses: eifinger/setup-rye@v3
+      - name: checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: setup rye
+        uses: eifinger/setup-rye@v3
       - name: set python version
         run: rye pin "3.12"
       - name: create GH release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          old_version=$(git describe --tags --abbrev=0)
-          version=$(echo $old_version | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.)
+          git fetch --tags
+          latest_tag_version=$(git describe --tags --abbrev=0)
+          echo "Found release ${latest_tag_version} as previous git tag"
+          version=$(echo $latest_tag_version | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.)
+          echo "Create release ${version} for ${GITHUB_REPOSITORY} in GitHub"
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
@@ -32,6 +43,8 @@ jobs:
             -F draft=false \
             -F prerelease=false \
             -F generate_release_notes=true
+          git fetch --tags
+          echo "Latest release is now $(git describe --tags --abbrev=0)"
       - name: build package
         run: rye build
       - name: publish to test.pypi.org
