@@ -48,12 +48,9 @@ jobs:
           git status
       - name: build package
         run: |
-          set -exuo pipefail
           python -V
-          pip -V
-          . ./bin/activate
+          . .venv/bin/activate
           pip install build
-          echo "installed build"
           python -m build
       - name: publish to test.pypi.org
         uses: pypa/gh-action-pypi-publish@release/v1
