@@ -30,9 +30,9 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           git fetch --tags
-          old_version=$(git describe --tags --abbrev=0)
-          echo "Found release ${old_version} as previous git tag"
-          version=$(echo $old_version | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.)
+          latest_tag_version=$(git describe --tags --abbrev=0)
+          echo "Found release ${latest_tag_version} as previous git tag"
+          version=$(echo $latest_tag_version | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.)
           echo "Create release ${version} for ${GITHUB_REPOSITORY} in GitHub"
           gh api \
             --method POST \
@@ -43,6 +43,7 @@ jobs:
             -F draft=false \
             -F prerelease=false \
             -F generate_release_notes=true
+          git fetch --tags
       - name: build package
         run: rye build
       - name: publish to test.pypi.org
