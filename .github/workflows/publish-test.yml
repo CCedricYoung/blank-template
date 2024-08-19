@@ -1,0 +1,30 @@
+name: publish-test
+
+# publish to test.pypi.org on merge to default branch
+
+on:
+  workflow_dispatch:
+  release:
+
+jobs:
+  test-publish-main:
+    environment: test-release  # match name in test.PyPI.org OIDC
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # Required for connecttion to pypi OIDC
+    steps:
+      - name: checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: setup rye
+        uses: eifinger/setup-rye@v3
+      - name: set python version
+        run: rye pin "3.12"
+      - name: build package
+        run: rye build
+      - name: publish to test.pypi.org
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
