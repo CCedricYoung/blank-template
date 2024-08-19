@@ -21,11 +21,12 @@ jobs:
         run: rye pin "3.12"
       - name: create GH release
         run: |
-          echo ${GITHUB_REPOSITORY}
+          git fetch --tags
           old_version=$(git describe --tags --abbrev=0)
-          echo $old_version
+          echo "Last tag was ${old_version}"
           version=$(echo $old_version | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.)
-          echo $version
+          echo "For ${GITHUB_REPOSITORY} creating release ${version}"
+
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
