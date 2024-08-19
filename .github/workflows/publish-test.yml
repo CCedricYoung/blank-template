@@ -8,7 +8,7 @@ on:
 
 jobs:
   test-publish-main:
-    environment: test-release  # match name in test.PyPI.org OIDC
+    environment: publish-test  # match name in test.PyPI.org OIDC
     runs-on: ubuntu-latest
     permissions:
       id-token: write  # Required for connecttion to pypi OIDC
