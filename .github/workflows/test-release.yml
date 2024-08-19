@@ -48,6 +48,8 @@ jobs:
           git status
       - name: build package
         run: |
+          set -exuo pipefail
+          python -V
           pip install build
           echo "installed build"
           python -m build
