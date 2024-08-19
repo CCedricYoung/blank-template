@@ -25,13 +25,14 @@ jobs:
       - name: set python version
         run: rye pin "3.12"
       - name: create GH release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           git fetch --tags
           old_version=$(git describe --tags --abbrev=0)
-          echo "Last tag was ${old_version}"
+          echo "Found release ${old_version} as previous git tag"
           version=$(echo $old_version | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.)
-          echo "For ${GITHUB_REPOSITORY} creating release ${version}"
-
+          echo "Create release ${version} for ${GITHUB_REPOSITORY} in GitHub"
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
