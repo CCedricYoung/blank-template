@@ -3,6 +3,7 @@ name: test-release
 # publish to test.pypi.org on merge to default branch
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'main'
@@ -16,8 +17,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: eifinger/setup-rye@v3
-      - run: rye pin "3.12"
-      - run: rye build
-      - uses: pypa/gh-action-pypi-publish@release/v1
+      - name: set python version
+        run: rye pin "3.12"
+      - name: create GH release
+        run: |
+          old_version=$(git describe --tags --abbrev=0)
+          version=$(echo $old_version | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.)
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${GITHUB_REPOSITORY}/releases \
+            -f tag_name=$version \
+            -f name="v$version" \
+            -F draft=false \
+            -F prerelease=false \
+            -F generate_release_notes=true
+      - name: build package
+        run: rye build
+      - name: publish to test.pypi.org
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
