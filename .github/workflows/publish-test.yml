@@ -13,7 +13,11 @@ jobs:
     permissions:
       id-token: write  # Required for connecttion to pypi OIDC
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-python@v5  # don't use eifinger/setup-rye@v3 since pdm build detects it as dirty
         with:
           python-version: "3.12"
