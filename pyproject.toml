@@ -25,7 +25,6 @@ source = "scm"
 managed = true
 dev-dependencies = [
     "pytest~=8.3.2",
-    "build~=1.2.1",
 ]
 
 [tool.rye.scripts]

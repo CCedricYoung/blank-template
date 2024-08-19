@@ -47,7 +47,7 @@ jobs:
           echo "Latest release is now $(git describe --tags --abbrev=0)"
           git status
       - name: build package
-        run: rye build --clean --verbose
+        run: pip install build && python -m build
       - name: publish to test.pypi.org
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
