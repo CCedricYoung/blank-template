@@ -50,6 +50,8 @@ jobs:
         run: |
           set -exuo pipefail
           python -V
+          pip -V
+          . ./bin/activate
           pip install build
           echo "installed build"
           python -m build
