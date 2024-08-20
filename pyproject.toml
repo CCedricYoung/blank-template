@@ -3,7 +3,7 @@ name = "blank-template"
 dynamic = ["version"]
 description = "blank python project"
 readme = "README.md"
-license = {file = "LICENSE"}
+license = {"text" = "MIT"}
 keywords = ["template"]
 homepage = "https://github.com/CCedricYoung/blank-template"
 repository = "https://github.com/CCedricYoung/blank-template"
