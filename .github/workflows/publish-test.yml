@@ -4,7 +4,7 @@ name: publish-test
 on:
   workflow_dispatch:
   release:
-    types: [published]
+    types: [released]
 
 jobs:
   test-publish-main:
