@@ -3,8 +3,8 @@ name: publish-test
 
 on:
   workflow_dispatch:
-  release:
-    types: [released]
+  repository_dispatch:
+    types: [trigger_publish_test]
 
 jobs:
   test-publish-main:

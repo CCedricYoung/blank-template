@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'main'
+      - main
 
 jobs:
   create-release-main:
@@ -36,3 +36,10 @@ jobs:
             -F draft=false \
             -F prerelease=false \
             -F generate_release_notes=true
+      - name: trigger publish-test workflow
+        run: |
+            curl -X POST \
+            -H "Authorization: token ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/dispatches \
+            -d '{"event_type": "trigger_publish_test"}'
