@@ -7,7 +7,7 @@ on:
     types: [trigger_publish_test]
 
 jobs:
-  test-publish-main:
+  publish-test-main:
     environment: publish-test  # match name in test.PyPI.org OIDC
     runs-on: ubuntu-latest
     permissions:
