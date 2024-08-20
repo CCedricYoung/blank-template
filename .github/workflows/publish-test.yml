@@ -18,12 +18,11 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: setup rye
-        uses: eifinger/setup-rye@v3
-      - name: set python version
-        run: rye pin "3.12"
+      - uses: actions/setup-python@v5  # don't use eifinger/setup-rye@v3 since pdm build detects it as dirty
+        with:
+          python-version: "3.12"
       - name: build package
-        run: rye build
+        run: pip install build && python -m build
       - name: publish to test.pypi.org
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
