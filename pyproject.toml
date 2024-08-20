@@ -7,7 +7,7 @@ license = {file = "LICENSE"}
 keywords = ["template"]
 homepage = "https://github.com/CCedricYoung/blank-template"
 repository = "https://github.com/CCedricYoung/blank-template"
-authors = [{ name = "Cedric Young", email = "ccedricyoung at gmail dot com" }]
+authors = [{ name = "Cedric Young", email = "ccedricyoung+pypi.blank-template@gmail.com" }]
 requires-python = ">= 3.11"
 classifiers = [  # see https://pypi.org/classifiers/
     "Development Status :: 1 - Planning",
