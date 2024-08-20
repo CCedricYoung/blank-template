@@ -1,7 +1,11 @@
-name: pr
+name: build
+
 on:
   pull_request:
     types: [opened, reopened, ready_for_review, synchronize]
+  push:
+    branches: [main]
+
 jobs:
   pr:
     runs-on: ubuntu-latest

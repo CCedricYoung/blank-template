@@ -3,10 +3,8 @@ name = "blank-template"
 dynamic = ["version"]
 description = "blank python project"
 readme = "README.md"
-license = {file = "LICENSE"}
+license = {"text" = "MIT"}
 keywords = ["template"]
-homepage = "https://github.com/CCedricYoung/blank-template"
-repository = "https://github.com/CCedricYoung/blank-template"
 authors = [{ name = "Cedric Young", email = "ccedricyoung+pypi.blank-template@gmail.com" }]
 requires-python = ">= 3.11"
 classifiers = [  # see https://pypi.org/classifiers/
@@ -27,6 +25,13 @@ classifiers = [  # see https://pypi.org/classifiers/
 dependencies = [
     "typer~=0.12.3",
 ]
+
+[project.urls]
+Homepage = "https://github.com/CCedricYoung/blank-template"
+Documentation = "https://github.com/CCedricYoung/blank-template"
+Repository = "https://github.com/CCedricYoung/blank-template.git"
+"Bug Tracker" = "https://github.com/CCedricYoung/blank-template/issues"
+Changelog = "https://github.com/CCedricYoung/blank-template/releases"
 
 [project.scripts]
 "blank-template" = "blank_template:main"

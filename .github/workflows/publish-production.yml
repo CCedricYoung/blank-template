@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-publish-main:
+  publish-production-main:
     environment: publish-production  # match name in www.PyPI.org OIDC
     runs-on: ubuntu-latest
     permissions:
